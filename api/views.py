@@ -1,21 +1,21 @@
 from rest_framework.response import Response
-from rest_framwork.decorators import api_view
+from rest_framework.decorators import api_view
 
 @api_view(['POST'])
 def createTask(request):
-    pass
+    return Response('Task created')
 
 
 @api_view(['GET'])
 def getTask(request):
-    pass
+    return Response('Task fetched')
 
 
 @api_view(['PUT'])
 def updateTask(request):
-    pass
+    return Response('Task updated')
 
 
 @api_view(['DELETE'])
 def deleteTask(request):
-    pass
+    return Response('Task deleted')
