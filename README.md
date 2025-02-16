@@ -46,9 +46,9 @@ This is a basic To Do Application in Django, with a React frontend. The applicat
         ```sh
         npm install
         ```
-    - Start the React development server:
+    - Build the project:
         ```sh
-        npm start
+        npm run build
         ```
 
 ## Usage
