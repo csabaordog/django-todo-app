@@ -1,5 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework import status
+from .models import Task
+from .serializers import TaskSerializer
+
 
 @api_view(['POST'])
 def createTask(request):
@@ -7,9 +11,15 @@ def createTask(request):
 
 
 @api_view(['GET'])
-def getTask(request):
-    return Response('Task fetched')
-
+def getTask(request, pk):
+    try:
+        task = Task.objects.get(pk=pk)
+        print(task.title)
+        serializer = TaskSerializer(task)
+        return Response(serializer.data)
+    
+    except Task.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['PUT'])
 def updateTask(request):
