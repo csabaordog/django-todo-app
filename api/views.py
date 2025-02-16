@@ -14,7 +14,6 @@ def createTask(request):
 def getTask(request, pk):
     try:
         task = Task.objects.get(pk=pk)
-        print(task.title)
         serializer = TaskSerializer(task)
         return Response(serializer.data)
     
