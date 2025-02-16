@@ -33,8 +33,23 @@ def getTask(request, pk):
 @api_view(['GET'])
 def getAllTasks(request):
     tasks = Task.objects.all()
-    serializer = TaskSerializer(tasks, many=True)
 
+    status = request.query_params.get('status')
+    if status:
+        tasks = tasks.filter(status=status)
+
+    due_date = request.query_params.get('due_date')
+    if due_date:
+        tasks = tasks.filter(due_date=due_date)
+
+    sort_by = request.query_params.get('sort_by')
+    order = request.query_params.get('order', 'asc')
+    if sort_by in ['created_at', 'due_date']:
+        if order == 'desc':
+            sort_by = f'-{sort_by}'
+        tasks = tasks.order_by(sort_by)
+
+    serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)
 
 

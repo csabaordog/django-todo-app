@@ -1,6 +1,6 @@
 # To Do App - Django
 
-This is a basic To Do Application in Django, with a React frontend. The application allows users to create, update, and delete tasks. Each task has a title, description, due date, and status.
+This is a basic To Do Application in Django, with a React frontend. The application allows users to create, update, and delete tasks. Each task has a title, description, creation date, due date, and status.
 
 ## Features
 
@@ -8,7 +8,8 @@ This is a basic To Do Application in Django, with a React frontend. The applicat
 - **Update Tasks**: Edit existing tasks to update their details.
 - **Delete Tasks**: Remove tasks that are no longer needed.
 - **Task Status**: Mark tasks as completed or pending.
-- **Smart Suggestions**: Get task suggestions based on previous tasks.
+
+
 
 ## Installation
 
@@ -78,19 +79,34 @@ curl -X GET http://localhost:8000/task/1/
 ```
 
 ### `GET /task-list/`
-Retrieve all tasks.
+Retrieve all tasks with optional filtering and sorting.
 
 **Request:**
 - Method: `GET`
 - URL: `/task-list/`
+- Query Parameters:
+  - `status` (string, optional): Filter tasks by status (e.g., `PENDING`, `IN_PROGRESS`, `COMPLETED`).
+  - `due_date` (string, optional): Filter tasks by due date in `YYYY-MM-DD` format.
+  - `sort_by` (string, optional): Sort tasks by `created_at` or `due_date`.
+  - `order` (string, optional): Sort order, either `asc` (ascending) or `desc` (descending). Default is `asc`.
 
 **Response:**
 - Status: `200 OK`
   - Body: JSON array containing a list of all tasks.
 
+#### Example Usage
 ```sh
+# Get all tasks
 curl -X GET http://localhost:8000/task/task-list/
 
+# Get tasks with status 'PENDING'
+curl -X GET "http://localhost:8000/task/task-list/?status=PENDING"
+
+# Get tasks with due date '2025-12-31'
+curl -X GET "http://localhost:8000/task/task-list/?due_date=2025-12-31"
+
+# Get tasks sorted by due date in descending order
+curl -X GET "http://localhost:8000/task/task-list/?sort_by=due_date&order=desc"
 ```
 
 ### `POST /task-create/`
