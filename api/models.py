@@ -10,10 +10,10 @@ class Task(models.Model):
 
     title = models.CharField(max_length=200)
     description = models.TextField()
-    created_at = model.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateTimeField()
     status = models.CharField(
         max_length=20,
         choices=Status.choices,
         default=Status.PENDING
-        )
+    )
